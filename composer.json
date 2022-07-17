@@ -1,0 +1,53 @@
+{
+    "name": "a2workspace/laravel-social-entry",
+    "description": "提供一個整合的第三方登入入口",
+    "keywords": [
+        "laravel"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Shishamou",
+            "email": "shishatw225@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "jakeasmith/http_build_url": "^1",
+        "socialiteproviders/line": "^4.1"
+    },
+    "require-dev": {
+        "orchestra/testbench": "6.x"
+    },
+    "autoload": {
+        "psr-4": {
+            "A2Workspace\\SocialEntry\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit"
+        ],
+        "test-coverage": [
+            "vendor/bin/phpunit --coverage-html coverage"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "A2Workspace\\SocialEntry\\ServiceProvider"
+            ]
+        }
+    },
+    "repositories": {
+        "a2workspace/laravel-jwt": {
+            "type": "vcs",
+            "url": "https://github.com/A2Workspace/laravel-jwt.git"
+        }
+    }
+}
