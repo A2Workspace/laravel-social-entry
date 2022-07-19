@@ -5,7 +5,7 @@
 ## Install
 
 ```bash
-composer config repositories.a2workspace/laravel-social-entry path ./packages/laravel-social-entry
+composer config repositories.a2workspace/laravel-social-entry vcs https://github.com/A2Workspace/laravel-social-entry.git
 composer require "a2workspace/laravel-social-entry:*"
 ```
 
