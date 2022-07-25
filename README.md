@@ -1,17 +1,46 @@
 # A2Workspace/Laravel-Social-Entry
 
-提供一個基於 Laravel Socialite 的 API 身分認證接口"
+提供一個基於 Laravel Socialite 的 API 身分認證接口
 
-## Install
+特性:
+
+- 專為前端 API 接口設計
+- 解決一般登入與社群登入不統一的問題
+- 解決新使用者透過社群登入後，要填寫完成註冊表格才能完成註冊的情況
+- 整合社群帳號連結功能
+- 支援多使用者模型
+- 相容 **Nuxt.js**；參考套件 [nuxt-social-entry](https://github.com/A2Workspace/nuxt-social-entry)
+
+快速前往:
+
+- [# Installation | 安裝](#Installation-|-安裝)
+- [# Configuration | 配置](#Configuration-|-配置)
+  - [# 一個簡單的設定範例](#一個簡單的設定範例)
+  - [# Registering Routes | 註冊路由](#Registering-Routes-|-註冊路由)
+
+-----
+
+## Installation | 安裝
+
+要在專案中使用 SocialEntry，執行下列命令透過 Composer 引入到你的 Laravel 專案中:
 
 ```bash
-composer config repositories.a2workspace/laravel-social-entry vcs https://github.com/A2Workspace/laravel-social-entry.git
-composer require "a2workspace/laravel-social-entry:*"
+composer require a2workspace/laravel-social-entry
 ```
 
-## Configuration
+接著使用 `vendor:publish` 命令生成設定檔:
 
-`config/services.php`
+```bash
+php artisan vendor:publish --tag=@a2workspace/laravel-social-entry
+```
+
+現在你可以在 `config/social-entry.php` 中指定要啟用的第三方授權登入。
+
+## Configuration | 配置
+
+開始用 SocialEntry 前，如同使用 [Laravel Socialite](https://laravel.com/docs/9.x/socialite)，你必須要先將第三方服務設定加到 `config/services.php` 內。你可以使用下面的範例或參考說明 [Laravel Socialite Configuration](https://laravel.com/docs/9.x/socialite#configuration)。
+
+### 一個簡單的設定範例:
 
 ```php
 'github' => [
@@ -39,7 +68,8 @@ composer require "a2workspace/laravel-social-entry:*"
 ],
 ```
 
-`.env`
+`.env`/`.env.example` 設定:
+
 ```bash
 # See https://github.com/settings/developers
 GITHUB_CLIENT_ID=
@@ -60,4 +90,52 @@ GOOGLE_REDIRECT_URL=
 LINE_CHANNEL_ID=
 LINE_SECRET=
 LINE_REDIRECT_URL=
+```
+
+這裡提供第三方的登入設定頁面連結:
+
+- `Github`: https://github.com/settings/developers
+- `Facebook`: https://developers.facebook.com/apps/?show_reminder=true
+- `Google`: https://console.cloud.google.com/apis/credentials
+- `Line`: https://developers.line.biz/console/
+
+### Registering Routes | 註冊路由
+
+接著你應該在 `App\Providers\AuthServiceProvider` 的 `boot` 方法中，呼叫 `SocialEntry::routes` 方法來註冊路由。
+
+```php
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use A2Workspace\SocialEntry\SocialEntry;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array<class-string, class-string>
+     */
+    protected $policies = [
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+    ];
+
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        if (! $this->app->routesAreCached()) {
+            SocialEntry::routes();
+        }
+    }
+}
+
 ```

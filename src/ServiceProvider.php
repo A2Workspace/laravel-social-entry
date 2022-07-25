@@ -18,7 +18,7 @@ class ServiceProvider extends IlluminateServiceProvider
 
         $this->publishes([
             __DIR__ . '/../publishes/config.php' => config_path('social-entry.php')
-        ], 'social-entry-config');
+        ], '@a2workspace/laravel-social-entry');
     }
 
     /**
