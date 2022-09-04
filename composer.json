@@ -43,11 +43,5 @@
                 "A2Workspace\\SocialEntry\\ServiceProvider"
             ]
         }
-    },
-    "repositories": {
-        "a2workspace/laravel-jwt": {
-            "type": "vcs",
-            "url": "https://github.com/A2Workspace/laravel-jwt.git"
-        }
     }
 }
