@@ -36,10 +36,10 @@
 
 快速前往:
 
-- [# Installation | 安裝](#Installation-|-安裝)
-- [# Configuration | 配置](#Configuration-|-配置)
-  - [# 一個簡單的設定範例](#一個簡單的設定範例)
-  - [# Registering Routes | 註冊路由](#Registering-Routes-|-註冊路由)
+- [Installation | 安裝](#Installation--安裝)
+- [Configuration | 配置](#Configuration--配置)
+  - [一個簡單的設定範例](#一個簡單的設定範例)
+  - [Registering Routes | 註冊路由](#Registering-Routes--註冊路由)
 
 -----
 
